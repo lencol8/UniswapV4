@@ -2472,8 +2472,10 @@ contract NBUNIERC20 is Context, INBUNIERC20, Ownable {
     }
 
     uint256 public totalLPTokensMinted;
+    uint public maxLPSupply=3600000;//TODO check the decimals
     uint256 public totalETHContributed;
     uint256 public LPperETHUnit;
+
 
 
     bool public LPGenerationCompleted;
@@ -2484,7 +2486,7 @@ contract NBUNIERC20 is Context, INBUNIERC20, Ownable {
     // 3) Failure to create LP tokens, addressed with checks
     // 4) Unacceptable division errors . Addressed with multiplications by 1e18
     // 5) Pair not set - impossible since its set in constructor
-    function addLiquidityToUniswapENCORExWETHPair() public {
+    function addLiquidityToUniswapENCORExWETHPair() public {// TODO change name
         require(liquidityGenerationOngoing() == false, "Liquidity generation onging");
         require(LPGenerationCompleted == false, "Liquidity generation already finished");
         totalETHContributed = address(this).balance;
@@ -2502,6 +2504,7 @@ contract NBUNIERC20 is Context, INBUNIERC20, Ownable {
         totalLPTokensMinted = pair.balanceOf(address(this));
         console.log("Total tokens minted",totalLPTokensMinted);
         require(totalLPTokensMinted != 0 , "LP creation failed");
+        require(totalLPTokensMinted<=maxLPSupply,"LP  balance eceeds the cap amount")//TODO validate logic
         LPperETHUnit = totalLPTokensMinted.mul(1e18).div(totalETHContributed); // 1e18x for  change
         console.log("Total per LP token", LPperETHUnit);
         require(LPperETHUnit != 0 , "LP creation failed");
