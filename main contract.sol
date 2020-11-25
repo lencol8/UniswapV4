@@ -2366,7 +2366,7 @@ contract NBUNIERC20 is Context, INBUNIERC20, Ownable {
         // _name = "EnCore";
         // _symbol = "ENCORE";
         // _decimals = 18;
-        // _mint(address(this), initialSupply);//TODO delete this commented  new token creation
+        // _mint(address(this), initialSupply);//TODO delete this commented  new token creation --Task 1
         contractStartTimestamp = block.timestamp;
         uniswapRouterV2 = IUniswapV2Router02(router != address(0) ? router : 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D); // For testing
         uniswapFactory = IUniswapV2Factory(factory != address(0) ? factory : 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f); // For testing
@@ -2472,7 +2472,7 @@ contract NBUNIERC20 is Context, INBUNIERC20, Ownable {
     }
 
     uint256 public totalLPTokensMinted;
-    uint public maxLPSupply=3600000;//TODO check the decimals
+    uint public maxLPSupply=3600000;//TODO check the decimals--Task2
     uint256 public totalETHContributed;
     uint256 public LPperETHUnit;
 
