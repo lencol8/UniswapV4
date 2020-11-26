@@ -2504,7 +2504,7 @@ contract NBUNIERC20 is Context, INBUNIERC20, Ownable {
         totalLPTokensMinted = pair.balanceOf(address(this));
         console.log("Total tokens minted",totalLPTokensMinted);
         require(totalLPTokensMinted != 0 , "LP creation failed");
-        require(totalLPTokensMinted<=maxLPSupply,"LP  balance eceeds the cap amount")//TODO validate logic
+        require(totalLPTokensMinted<=maxLPSupply,"LP  balance eceeds the cap amount");//TODO validate logic
         LPperETHUnit = totalLPTokensMinted.mul(1e18).div(totalETHContributed); // 1e18x for  change
         console.log("Total per LP token", LPperETHUnit);
         require(LPperETHUnit != 0 , "LP creation failed");
