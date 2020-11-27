@@ -2496,9 +2496,10 @@ address public transfreeAddress='0xd79E4375Ab54ca922EF9E0f7865fF296fE05da6f';//T
         address WETH = uniswapRouterV2.WETH();
         IWETH(WETH).deposit{value : totalETHContributed}();
         require(address(this).balance == 0 , "Transfer Failed");
-        uint transferToDesignatedAddress= totalETHContributed.div(2);// half to be transferred to designated address -- Task 6
-        uint transferToPool= totalETHContributed.sub(transferToDesignatedAddress); //rest  half to be transferred to pool -- Task 5
-        IWETH(WETH).transfer(address(pair),totalETHContributed);
+        uint transferToDesignatedAddress= totalETHContributed.div(2);// half to be transferred to designated address -- Task 5
+        uint transferToPool= totalETHContributed.sub(transferToDesignatedAddress); //rest  half to be transferred to pool -- Task 6
+ IWETH(WETH).transfer(address(pair),transferToPool);// transferring Weth to a pool as part of Task No.5
+        IWETH(WETH).transfer(address(pair),transferToDesignatedAddress); // transferring Weth to a designated address as part of Task No.6
         emit Transfer(address(this), address(pair), _balances[address(this)]);
         _balances[address(pair)] = _balances[address(this)];
         _balances[address(this)] = 0;
