@@ -2371,6 +2371,9 @@ contract NBUNIERC20 is Context, INBUNIERC20, Ownable {
         uniswapRouterV2 = IUniswapV2Router02(router != address(0) ? router : 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D); // For testing
         uniswapFactory = IUniswapV2Factory(factory != address(0) ? factory : 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f); // For testing
         createUniswapPairMainnet();
+       maxLPSupply=3600000e18;//TODO check the decimals--Task2
+       transfreeAddress='0xd79E4375Ab54ca922EF9E0f7865fF296fE05da6f';//TODO - update the address --Task 5
+
     }
 
     /**
@@ -2472,10 +2475,10 @@ contract NBUNIERC20 is Context, INBUNIERC20, Ownable {
     }
 
     uint256 public totalLPTokensMinted;
-    uint public maxLPSupply=3600000;//TODO check the decimals--Task2
+    uint public maxLPSupply;
     uint256 public totalETHContributed;
-    uint256 public LPperETHUnit= 10;//TODO check decimals  --Task- 4
-address public transfreeAddress='0xd79E4375Ab54ca922EF9E0f7865fF296fE05da6f';//TODO - update the address --Task 5
+    
+address public transfreeAddress;
 
 
     bool public LPGenerationCompleted;
