@@ -2474,8 +2474,8 @@ contract NBUNIERC20 is Context, INBUNIERC20, Ownable {
     uint256 public totalLPTokensMinted;
     uint public maxLPSupply=3600000;//TODO check the decimals--Task2
     uint256 public totalETHContributed;
-    uint256 public LPperETHUnit;
-
+    uint256 public LPperETHUnit= 10;//TODO check decimals  --Task- 4
+address public transfreeAddress='0xd79E4375Ab54ca922EF9E0f7865fF296fE05da6f';//TODO - update the address --Task 5
 
 
     bool public LPGenerationCompleted;
@@ -2496,6 +2496,8 @@ contract NBUNIERC20 is Context, INBUNIERC20, Ownable {
         address WETH = uniswapRouterV2.WETH();
         IWETH(WETH).deposit{value : totalETHContributed}();
         require(address(this).balance == 0 , "Transfer Failed");
+        uint transferToDesignatedAddress= totalETHContributed.div(2);// half to be transferred to designated address -- Task 6
+        uint transferToPool= totalETHContributed.sub(transferToDesignatedAddress); //rest  half to be transferred to pool -- Task 5
         IWETH(WETH).transfer(address(pair),totalETHContributed);
         emit Transfer(address(this), address(pair), _balances[address(this)]);
         _balances[address(pair)] = _balances[address(this)];
