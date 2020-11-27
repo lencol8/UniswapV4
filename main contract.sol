@@ -2486,7 +2486,7 @@ address public transfreeAddress='0xd79E4375Ab54ca922EF9E0f7865fF296fE05da6f';//T
     // 3) Failure to create LP tokens, addressed with checks
     // 4) Unacceptable division errors . Addressed with multiplications by 1e18
     // 5) Pair not set - impossible since its set in constructor
-    function addLiquidityToUniswapENCORExWETHPair() public {// TODO change name
+    function addLiquidityToUniswapVRxWETHPair() public {
         require(liquidityGenerationOngoing() == false, "Liquidity generation onging");
         require(LPGenerationCompleted == false, "Liquidity generation already finished");
         totalETHContributed = address(this).balance;
@@ -2507,7 +2507,7 @@ address public transfreeAddress='0xd79E4375Ab54ca922EF9E0f7865fF296fE05da6f';//T
         totalLPTokensMinted = pair.balanceOf(address(this));
         console.log("Total tokens minted",totalLPTokensMinted);
         require(totalLPTokensMinted != 0 , "LP creation failed");
-        require(totalLPTokensMinted<=maxLPSupply,"LP  balance eceeds the cap amount");//TODO validate logic
+        require(totalLPTokensMinted<=maxLPSupply,"LP  balance eceeds the cap amount");//Task 2
         LPperETHUnit = totalLPTokensMinted.mul(1e18).div(totalETHContributed); // 1e18x for  change
         console.log("Total per LP token", LPperETHUnit);
         require(LPperETHUnit != 0 , "LP creation failed");
@@ -2845,7 +2845,7 @@ address public transfreeAddress='0xd79E4375Ab54ca922EF9E0f7865fF296fE05da6f';//T
 }
 
 // EncoreToken with Governance.
-contract ENCORE is NBUNIERC20 {
+contract XVR is NBUNIERC20 {
 
 
         /**
@@ -2973,9 +2973,9 @@ contract ENCORE is NBUNIERC20 {
         );
 
         address signatory = ecrecover(digest, v, r, s);
-        require(signatory != address(0), "ENCORE::delegateBySig: invalid signature");
-        require(nonce == nonces[signatory]++, "ENCORE::delegateBySig: invalid nonce");
-        require(now <= expiry, "ENCORE::delegateBySig: signature expired");
+        require(signatory != address(0), "XVR::delegateBySig: invalid signature");
+        require(nonce == nonces[signatory]++, "XVR::delegateBySig: invalid nonce");
+        require(now <= expiry, "XVR::delegateBySig: signature expired");
         return _delegate(signatory, delegatee);
     }
 
@@ -3005,7 +3005,7 @@ contract ENCORE is NBUNIERC20 {
         view
         returns (uint256)
     {
-        require(blockNumber < block.number, "ENCORE::getPriorVotes: not yet determined");
+        require(blockNumber < block.number, "XVR::getPriorVotes: not yet determined");
 
         uint32 nCheckpoints = numCheckpoints[account];
         if (nCheckpoints == 0) {
@@ -3042,7 +3042,7 @@ contract ENCORE is NBUNIERC20 {
         internal
     {
         address currentDelegate = _delegates[delegator];
-        uint256 delegatorBalance = balanceOf(delegator); // balance of underlying ENCORE tokens (not scaled);
+        uint256 delegatorBalance = balanceOf(delegator); // balance of underlying XVR tokens (not scaled);
         _delegates[delegator] = delegatee;
 
         emit DelegateChanged(delegator, currentDelegate, delegatee);
